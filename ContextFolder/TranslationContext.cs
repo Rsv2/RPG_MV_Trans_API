@@ -1,14 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
 
 namespace RPG_MV_Trans_API
 {
+    /// <summary>
+    /// Контекст БД.
+    /// </summary>
     public class TranslationContext : DbContext
     {
+        /// <summary>
+        /// Карты
+        /// </summary>
         public DbSet<Map> MapEnt { get; set; }
+        /// <summary>
+        /// Элементы перевода
+        /// </summary>
         public DbSet<TransUnit> TransEnt { get; set; }
+        /// <summary>
+        /// Игры
+        /// </summary>
         public DbSet<Game> GamesEnt { get; set; }
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public TranslationContext()
         {
             Database.EnsureCreated();
@@ -23,6 +37,10 @@ namespace RPG_MV_Trans_API
             modelBuilder.Entity<TransUnit>().HasKey(u => new { u.MapId, u.Id, u.GameId });
         }
 
+        /// <summary>
+        /// Конфигурация подключения.
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
