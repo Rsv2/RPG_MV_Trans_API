@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RPG_MV_Trans_API.Controllers
 {
+    /// <summary>
+    /// Чтение, запись логов перевода.
+    /// Доступ : "admin, user"
+    /// </summary>
     [Route("api/[controller]")]
+    [Authorize(Roles = "admin,user")]
     [ApiController]
     public class TranslationLogController : ControllerBase
     {
-        TranslationContext context = new TranslationContext();
+        /// <summary>
+        /// Список логов.
+        /// </summary>
         public static List<TransLog> Log { get; set; }
         static TranslationLogController()
         {

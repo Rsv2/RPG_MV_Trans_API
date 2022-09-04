@@ -7,6 +7,9 @@ namespace RPG_MV_Trans_API.Controllers
 {
     /// <summary>
     /// Контроллер заливки данных игры и изменения основной информации.
+    /// Доступ:
+    /// Запись/изменение/удаление - владелец сервера (admin).
+    /// Чтение - обычные пользователи (user).
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -59,6 +62,7 @@ namespace RPG_MV_Trans_API.Controllers
             context.GamesEnt.Update(temp);
             await context.SaveChangesAsync();
         }
+        [Authorize(Roles = "admin,user")]
         /// <summary>
         /// Получить список проектов.
         /// </summary>
