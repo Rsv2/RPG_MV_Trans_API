@@ -13,7 +13,6 @@ namespace RPG_MV_Trans_API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin")]
     public class GameDataController : ControllerBase
     {
         TranslationContext context = new TranslationContext();
@@ -24,6 +23,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <param name="GameData">Данные для добавления в БД: 0 - заголовок и описание проекта, 1 - Список карт проекта, 2 - Список данных карт проекта</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async void Post([FromBody] Uploading GameData)
         {
             if (GameData.Type == 0)
@@ -50,6 +50,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <param name="Game"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public async Task Put([FromBody] Game Game)
         {
             Game? temp = context.GamesEnt.ToList().Find(u => u.Id == Game.Id);
@@ -62,12 +63,12 @@ namespace RPG_MV_Trans_API.Controllers
             context.GamesEnt.Update(temp);
             await context.SaveChangesAsync();
         }
-        [Authorize(Roles = "admin,user")]
         /// <summary>
         /// Получить список проектов.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "admin, user")]
         public async Task<IEnumerable<Game>>? Get()
         {
             try { return await context.GamesEnt.ToListAsync(); }
@@ -79,6 +80,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <param name="id">Id удаляемого проекта</param>
         /// <returns></returns>
         [HttpDelete, Route("{id}")]
+        [Authorize(Roles = "admin")]
         public async void Delete(int id)
         {
             Game game = context.GamesEnt.ToList().Find(u => u.Id == id);

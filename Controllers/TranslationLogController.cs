@@ -8,7 +8,7 @@ namespace RPG_MV_Trans_API.Controllers
     /// Доступ : "admin, user"
     /// </summary>
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin, user")]
     [ApiController]
     public class TranslationLogController : ControllerBase
     {
