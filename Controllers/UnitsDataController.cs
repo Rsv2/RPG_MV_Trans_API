@@ -6,14 +6,16 @@ namespace RPG_MV_Trans_API.Controllers
 {
     /// <summary>
     /// Контроллер управления данными проекта
-    /// Доступ: admin, user
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin, user")]
+    [Authorize(Policy = "TransRPGMakerMVMZ")]
     public class UnitsDataController : ControllerBase
     {
         TranslationContext context = new TranslationContext();
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public UnitsDataController() { }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <summary>
         /// Получить данные карты.
         /// </summary>
-        /// <returns>Коллекция данных карты</returns>
+        /// <returns></returns>
         [HttpGet, Route("{gameid}/{mapid}")]
         public IEnumerable<TransUnit> Get(int gameid, int mapid)
         {

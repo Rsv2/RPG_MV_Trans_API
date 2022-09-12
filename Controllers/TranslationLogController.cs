@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace RPG_MV_Trans_API.Controllers
 {
     /// <summary>
-    /// Чтение, запись логов перевода.
-    /// Доступ : "admin, user"
+    /// Контроллер обмена логами перевода.
     /// </summary>
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin, user")]
     [ApiController]
+    [Authorize(Policy = "TransRPGMakerMVMZ")]
     public class TranslationLogController : ControllerBase
     {
+        TranslationContext context = new TranslationContext();
         /// <summary>
-        /// Список логов.
+        /// Коллекция логов.
         /// </summary>
         public static List<TransLog> Log { get; set; }
         static TranslationLogController()

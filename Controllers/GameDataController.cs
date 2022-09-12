@@ -7,9 +7,6 @@ namespace RPG_MV_Trans_API.Controllers
 {
     /// <summary>
     /// Контроллер заливки данных игры и изменения основной информации.
-    /// Доступ:
-    /// Запись/изменение/удаление - владелец сервера (admin).
-    /// Чтение - обычные пользователи (user).
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -68,7 +65,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Policy = "TransRPGMakerMVMZ")]
         public async Task<IEnumerable<Game>>? Get()
         {
             try { return await context.GamesEnt.ToListAsync(); }

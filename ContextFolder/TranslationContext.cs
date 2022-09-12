@@ -30,15 +30,17 @@ namespace RPG_MV_Trans_API
             TransEnt.Load();
             GamesEnt.Load();
         }
-
+        /// <summary>
+        /// Компоновка сущностей.
+        /// </summary>
+        /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Map>().HasKey(u => new { u.Id, u.GameId });
             modelBuilder.Entity<TransUnit>().HasKey(u => new { u.MapId, u.Id, u.GameId });
         }
-
         /// <summary>
-        /// Конфигурация подключения.
+        /// Конфигурация подключения БД переводов (MySQL, MariaDB).
         /// </summary>
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
