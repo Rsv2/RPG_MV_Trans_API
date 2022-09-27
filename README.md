@@ -8,4 +8,4 @@ API для сетевого переводчика (на данный момен
 На сервер заливаются отсканированные файлы обычного RPG Maker MV/MZ Translator.
 Сетевой переводчик получает данные от сервера и сразу применяет на файлах игры у всех участников командного перевода.
 
-[![Видео](http://img.youtube.com/vi/rrEGaFuEU48/2.jpg)](http://youtu.be/rrEGaFuEU48)
+[![Видео](http://img.youtube.com/vi/rrEGaFuEU48/4.jpg)](http://youtu.be/rrEGaFuEU48)
