@@ -6,7 +6,7 @@ API для сетевого переводчика (на данный момен
 
 Как это примерно будет выглядеть с десктоп приложением.
 
-[![Видео](https://i9.ytimg.com/vi/ovLCsa_r8g8/mq2.jpg?sqp=CNyDgZsG-oaymwEmCMACELQB8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGBMgMCh_MA8=&rs=AOn4CLBkvcEYWEInYdezsMC-bPJ7MNwXqQ)](https://youtu.be/ovLCsa_r8g8)
+[![Видео](https://pair.casualmods.net/images/NetTrans/NetTrans1.png)](https://youtu.be/ynKTsyQEveU)
 
 На сервер заливаются отсканированные файлы обычного RPG Maker MV/MZ Translator.
 Сетевой переводчик получает данные от сервера и сразу применяет на файлах игры у всех участников командного перевода.
