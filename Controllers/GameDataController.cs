@@ -13,6 +13,9 @@ namespace RPG_MV_Trans_API.Controllers
     public class GameDataController : ControllerBase
     {
         TranslationContext context = new TranslationContext();
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public GameDataController() { }
         /// <summary>
         /// Запись данных в БД.
