@@ -18,6 +18,7 @@ namespace RPG_MV_Trans_API
         public string TransLang { get; set; }
         public string Creator { get; set; }
         public string Description { get; set; }
+        public string UrlExtra { get; set; }
 
         /// <summary>
         /// Пустой конструктор.
@@ -35,7 +36,8 @@ namespace RPG_MV_Trans_API
         /// <param name="sourcelang">Язык исходника</param>
         /// <param name="translang">Яхык перевода</param>
         /// <param name="description">Описание</param>
-        public Game(int id, string name, string version, string author, string sourcelang, string translang, string description, string creator)
+        /// <param name="urlExtra">Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)</param>
+        public Game(int id, string name, string version, string author, string sourcelang, string translang, string description, string creator, string urlExtra)
         {
             Id = id;
             Name = name;
@@ -46,6 +48,7 @@ namespace RPG_MV_Trans_API
             Description = description;
             Creator = creator;
             CreationDate = DateTime.Now;
+            UrlExtra = urlExtra;
         }
     }
 }

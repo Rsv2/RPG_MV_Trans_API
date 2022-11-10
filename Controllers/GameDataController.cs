@@ -60,6 +60,7 @@ namespace RPG_MV_Trans_API.Controllers
             temp.SourceLang = Game.SourceLang;
             temp.TransLang = Game.TransLang;
             temp.Description = Game.Description;
+            temp.UrlExtra = Game.UrlExtra;
             context.GamesEnt.Update(temp);
             await context.SaveChangesAsync();
         }

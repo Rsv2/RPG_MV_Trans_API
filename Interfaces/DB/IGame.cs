@@ -40,4 +40,9 @@ public interface IGame
     /// Имя пользователя.
     /// </summary>
     string Creator { get; set; }
+    /// <summary>
+    /// Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)
+    /// </summary>
+    string UrlExtra { get; set; }
+
 }
