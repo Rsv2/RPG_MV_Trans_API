@@ -9,7 +9,6 @@ namespace RPG_MV_Trans_API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "TransRPGMakerMVMZ")]
     public class UnitsDataController : ControllerBase
     {
         TranslationContext context = new TranslationContext();
@@ -23,6 +22,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// </summary>
         /// <returns>текст</returns>
         [HttpGet, Route("{gameid}/{mapid}/{id}")]
+        [Authorize(Policy = "Reader")]
         public string Get(int gameid, int mapid, int id)
         {
             try
@@ -36,6 +36,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("{gameid}/{mapid}")]
+        [Authorize(Policy = "Reader")]
         public IEnumerable<TransUnit> Get(int gameid, int mapid)
         {
             try
@@ -49,6 +50,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("{gameid}")]
+        [Authorize(Policy = "Reader")]
         public IEnumerable<TransUnit> Get(int gameid)
         {
             try
@@ -63,6 +65,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <param name="trans">Перевод</param>
         /// <returns>Результат выполнения</returns>
         [HttpPut]
+        [Authorize(Policy = "Editor")]
         public async void Put([FromBody] List<TransReq> trans)
         {
             try

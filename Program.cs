@@ -98,7 +98,8 @@ builder.Services
 //В таком случае Вам необходимо будет добавить или использовать одно из утверждений Claim в Вашей базе данных Identity.
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("TransRPGMakerMVMZ", policy => policy.RequireClaim("game", "TransRPGMakerMVMZ"));
+    options.AddPolicy("Reader", policy => policy.RequireClaim("game", "Reader"));
+    options.AddPolicy("Editor", policy => policy.RequireClaim("game", "Editor"));
 });
 
 var app = builder.Build();

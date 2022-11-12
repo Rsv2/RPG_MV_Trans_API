@@ -69,7 +69,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Policy = "TransRPGMakerMVMZ")]
+        [Authorize(Policy = "Reader")]
         public async Task<IEnumerable<Game>>? Get()
         {
             try { return await context.GamesEnt.ToListAsync(); }
