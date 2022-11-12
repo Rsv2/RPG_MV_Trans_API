@@ -8,7 +8,7 @@ namespace RPG_MV_Trans_API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "TransRPGMakerMVMZ")]
+    [Authorize(Policy = "Reader")]
     public class TranslationLogController : ControllerBase
     {
         TranslationContext context = new TranslationContext();
