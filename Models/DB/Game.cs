@@ -11,6 +11,7 @@ namespace RPG_MV_Trans_API
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string TitlePic { get; set; }
         public DateTime CreationDate { get; set; }
         public string Version { get; set; }
         public string Author { get; set; }
@@ -29,6 +30,7 @@ namespace RPG_MV_Trans_API
         /// Конструктор добавления.
         /// </summary>
         /// <param name="name">Название игры</param>
+        /// <param name="titlepic">Url титульной картинки</param>
         /// <param name="creator">Имя заливщика</param>
         /// <param name="id">Идентификатор</param>
         /// <param name="version">Версия</param>
@@ -37,10 +39,11 @@ namespace RPG_MV_Trans_API
         /// <param name="translang">Яхык перевода</param>
         /// <param name="description">Описание</param>
         /// <param name="urlExtra">Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)</param>
-        public Game(int id, string name, string version, string author, string sourcelang, string translang, string description, string creator, string urlExtra)
+        public Game(int id, string name, string titlepic, string version, string author, string sourcelang, string translang, string description, string creator, string urlExtra)
         {
             Id = id;
             Name = name;
+            TitlePic = titlepic;
             Version = version;
             Author = author;
             SourceLang = sourcelang;

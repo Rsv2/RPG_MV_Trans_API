@@ -13,6 +13,10 @@ public interface IGame
     /// </summary>
     string Name { get; set; }
     /// <summary>
+    /// Url титульной картинки.
+    /// </summary>
+    string TitlePic { get; set; }
+    /// <summary>
     /// Версия игры.
     /// </summary>
     string Version { get; set; }
@@ -44,5 +48,4 @@ public interface IGame
     /// Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)
     /// </summary>
     string UrlExtra { get; set; }
-
 }

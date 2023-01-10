@@ -55,6 +55,7 @@ namespace RPG_MV_Trans_API.Controllers
         {
             Game? temp = context.GamesEnt.ToList().Find(u => u.Id == Game.Id);
             temp.Name = Game.Name;
+            temp.TitlePic = Game.TitlePic;
             temp.Version = Game.Version;
             temp.Author = Game.Author;
             temp.SourceLang = Game.SourceLang;
