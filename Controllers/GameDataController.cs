@@ -87,12 +87,8 @@ namespace RPG_MV_Trans_API.Controllers
         {
             Game game = context.GamesEnt.ToList().Find(u => u.Id == id);
             List<Map> maps = context.MapEnt.Local.ToList().FindAll(u => u.GameId == game.Id);
-            for (int j = 0; j < maps.Count; j++)
-            {
-                List<TransUnit> units = context.TransEnt.ToList().FindAll(u => u.GameId == game.Id && u.MapId == maps[j].Id);
-                context.RemoveRange(units.ToArray());
-                await context.SaveChangesAsync();
-            }
+            List<TransUnit> units = context.TransEnt.ToList().FindAll(u => u.GameId == game.Id);
+            context.RemoveRange(units.ToArray());
             context.RemoveRange(maps.ToArray());
             context.Remove(game);
             await context.SaveChangesAsync();
