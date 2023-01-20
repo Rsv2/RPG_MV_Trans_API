@@ -73,11 +73,10 @@ namespace RPG_MV_Trans_API.Controllers
                 bool delay = false;
                 List<TransUnit> units = new List<TransUnit>();
                 List<TransLog> logs = new List<TransLog>();
-                List<TransUnit> rawunits = context.TransEnt.ToListAsync().Result;
                 for (int i = 0; i < trans.Count; i++)
                 {
-                    TransUnit unit = rawunits.Find(u => u.GameId == trans[i].GameId && u.MapId == trans[i].MapId && u.Id == trans[i].Id);
-                    if (unit.Time < trans[i].Time)
+                    TransUnit? unit = context.TransEnt.FirstOrDefault(u => u.GameId == trans[i].GameId && u.MapId == trans[i].MapId && u.Id == trans[i].Id);
+                    if (unit != null && unit.Time < trans[i].Time)
                     {
                         delay = false;
                         unit.Trans = trans[i].Trans;

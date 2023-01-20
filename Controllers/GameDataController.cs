@@ -85,12 +85,10 @@ namespace RPG_MV_Trans_API.Controllers
         [Authorize(Roles = "admin")]
         public async void Delete(int id)
         {
-            Game game = context.GamesEnt.ToList().Find(u => u.Id == id);
-            List<Map> maps = context.MapEnt.Local.ToList().FindAll(u => u.GameId == game.Id);
-            List<TransUnit> units = context.TransEnt.ToList().FindAll(u => u.GameId == game.Id);
-            context.RemoveRange(units.ToArray());
-            context.RemoveRange(maps.ToArray());
-            context.Remove(game);
+            int gameId = context.GamesEnt.First(u => u.Id == id).Id;
+            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `TransEnt` WHERE `GameId` = {gameId};");
+            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `MapEnt` WHERE `GameId` = {gameId};");
+            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `GamesEnt` WHERE `Id` = {id};");
             await context.SaveChangesAsync();
         }
     }
