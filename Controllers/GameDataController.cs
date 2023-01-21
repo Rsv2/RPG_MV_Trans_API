@@ -47,23 +47,15 @@ namespace RPG_MV_Trans_API.Controllers
         /// <summary>
         /// Изменение названия и/или описания проекта.
         /// </summary>
-        /// <param name="Game"></param>
+        /// <param name="game"></param>
         /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "admin")]
-        public async Task Put([FromBody] Game Game)
+        public async Task Put([FromBody] Game game)
         {
-            Game? temp = context.GamesEnt.ToList().Find(u => u.Id == Game.Id);
-            temp.Name = Game.Name;
-            temp.TitlePic = Game.TitlePic;
-            temp.Version = Game.Version;
-            temp.Author = Game.Author;
-            temp.SourceLang = Game.SourceLang;
-            temp.TransLang = Game.TransLang;
-            temp.Description = Game.Description;
-            temp.UrlExtra = Game.UrlExtra;
-            context.GamesEnt.Update(temp);
-            await context.SaveChangesAsync();
+            await context.Database.ExecuteSqlRawAsync($"UPDATE `GamesEnt` SET `Name`=\"{game.Name}\",`TitlePic`=\"{game.TitlePic}\"," +
+                $"`Version`=\"{game.Version}\",`Author`=\"{game.Author}\",`SourceLang`=\"{game.SourceLang}\",`TransLang`=\"{game.TransLang}\"," +
+                $"`Creator`=\"{game.Creator}\",`Description`= \"{game.Description}\",`UrlExtra`= \"{game.UrlExtra}\" WHERE `Id`= {game.Id};");
         }
         /// <summary>
         /// Получить список проектов.
@@ -73,7 +65,7 @@ namespace RPG_MV_Trans_API.Controllers
         [Authorize(Policy = "Reader")]
         public async Task<IEnumerable<Game>>? Get()
         {
-            try { return await context.GamesEnt.ToListAsync(); }
+            try { return await context.GamesEnt.FromSqlRaw($"SELECT * FROM `GamesEnt`").ToListAsync(); }
             catch { return null; }
         }
         /// <summary>

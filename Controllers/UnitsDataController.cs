@@ -23,13 +23,11 @@ namespace RPG_MV_Trans_API.Controllers
         /// <returns>текст</returns>
         [HttpGet, Route("{gameid}/{mapid}/{id}")]
         [Authorize(Policy = "Reader")]
-        public string Get(int gameid, int mapid, int id)
+        public async Task<IEnumerable<TransUnit>> Get(int gameid, int mapid, int id)
         {
-            try
-            {
-                return context.TransEnt.ToListAsync().Result.Find(u => u.GameId == gameid && u.MapId == mapid && u.Id == id).Trans;
-            }
+            try { return await context.TransEnt.FromSqlRaw($"SELECT * FROM `TransEnt` WHERE `GameId`={gameid} AND `MapId`={mapid} AND `Id`={id}").ToListAsync(); }
             catch { return null; }
+
         }
         /// <summary>
         /// Получить данные карты.
@@ -37,12 +35,9 @@ namespace RPG_MV_Trans_API.Controllers
         /// <returns></returns>
         [HttpGet, Route("{gameid}/{mapid}")]
         [Authorize(Policy = "Reader")]
-        public IEnumerable<TransUnit> Get(int gameid, int mapid)
+        public async Task<IEnumerable<TransUnit>> Get(int gameid, int mapid)
         {
-            try
-            {
-                return context.TransEnt.ToListAsync().Result.FindAll(u => u.GameId == gameid && u.MapId == mapid);
-            }
+            try { return await context.TransEnt.FromSqlRaw($"SELECT * FROM `TransEnt` WHERE `GameId`={gameid} AND `MapId`={mapid}").ToListAsync(); }
             catch { return null; }
         }
         /// <summary>
@@ -51,12 +46,9 @@ namespace RPG_MV_Trans_API.Controllers
         /// <returns></returns>
         [HttpGet, Route("{gameid}")]
         [Authorize(Policy = "Reader")]
-        public IEnumerable<TransUnit> Get(int gameid)
+        public async Task<IEnumerable<TransUnit>> Get(int gameid)
         {
-            try
-            {
-                return context.TransEnt.ToListAsync().Result.FindAll(u => u.GameId == gameid);
-            }
+            try { return await context.TransEnt.FromSqlRaw($"SELECT * FROM `TransEnt` WHERE `GameId`={gameid}").ToListAsync(); }
             catch { return null; }
         }
         /// <summary>
@@ -66,7 +58,7 @@ namespace RPG_MV_Trans_API.Controllers
         /// <returns>Результат выполнения</returns>
         [HttpPut]
         [Authorize(Policy = "Editor")]
-        public async void Put([FromBody] List<TransReq> trans)
+        public async Task Put([FromBody] List<TransReq> trans)
         {
             try
             {

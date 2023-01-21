@@ -25,11 +25,7 @@ namespace RPG_MV_Trans_API.Controllers
         [HttpGet, Route("{gameId}")]
         public async Task<IEnumerable<Map>>? Get(int gameId)
         {
-            try
-            {
-                List<Map> maps = await context.MapEnt.ToListAsync();
-                return maps.FindAll(u => u.GameId == gameId);
-            }
+            try { return await context.MapEnt.FromSqlRaw($"SELECT * FROM `MapEnt` WHERE `GameId`={gameId}").ToListAsync(); }
             catch { return null; }
         }
     }
