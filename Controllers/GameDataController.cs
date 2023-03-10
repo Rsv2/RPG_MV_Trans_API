@@ -24,25 +24,21 @@ namespace RPG_MV_Trans_API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async void Post([FromBody] Uploading GameData)
+        public async Task Post([FromBody] Uploading GameData)
         {
             if (GameData.Type == 0)
             {
-                Console.WriteLine(GameData.UploadingData);
-                await context.GamesEnt.AddAsync(JsonConvert.DeserializeObject<Game>(GameData.UploadingData));
-                await context.SaveChangesAsync();
+                await Task.Run(() => context.GamesEnt.AddAsync(JsonConvert.DeserializeObject<Game>(GameData.UploadingData)));
             }
             else if (GameData.Type == 1)
             {
-                await context.MapEnt.AddRangeAsync(JsonConvert.DeserializeObject<List<Map>>(GameData.UploadingData));
-                await context.SaveChangesAsync();
+                await Task.Run(() => context.MapEnt.AddRangeAsync(JsonConvert.DeserializeObject<List<Map>>(GameData.UploadingData)));
             }
             else if (GameData.Type == 2)
             {
-                await context.TransEnt.AddRangeAsync(JsonConvert.DeserializeObject<List<TransUnit>>(GameData.UploadingData));
-                await context.SaveChangesAsync();
+                await Task.Run(() => context.TransEnt.AddRangeAsync(JsonConvert.DeserializeObject<List<TransUnit>>(GameData.UploadingData)));
             }
-            await context.SaveChangesAsync();
+            await Task.Run(() => context.SaveChangesAsync());
         }
         /// <summary>
         /// Изменение названия и/или описания проекта.
@@ -53,9 +49,10 @@ namespace RPG_MV_Trans_API.Controllers
         [Authorize(Roles = "admin")]
         public async Task Put([FromBody] Game game)
         {
-            await context.Database.ExecuteSqlRawAsync($"UPDATE `GamesEnt` SET `Name`=\"{game.Name}\",`TitlePic`=\"{game.TitlePic}\"," +
+            await Task.Run(() => context.Database.ExecuteSqlRawAsync($"UPDATE `GamesEnt` SET `Name`=\"{game.Name}\",`TitlePic`=\"{game.TitlePic}\"," +
                 $"`Version`=\"{game.Version}\",`Author`=\"{game.Author}\",`SourceLang`=\"{game.SourceLang}\",`TransLang`=\"{game.TransLang}\"," +
-                $"`Creator`=\"{game.Creator}\",`Description`= \"{game.Description}\",`UrlExtra`= \"{game.UrlExtra}\" WHERE `Id`= {game.Id};");
+                $"`Creator`=\"{game.Creator}\",`Description`= \"{game.Description}\",`UrlExtra`= \"{game.UrlExtra}\",`Substitution`= \"{game.Substitution}\"" +
+                $" WHERE `Id`= {game.Id};"));
         }
         /// <summary>
         /// Получить список проектов.
@@ -65,7 +62,8 @@ namespace RPG_MV_Trans_API.Controllers
         [Authorize(Policy = "Reader")]
         public async Task<IEnumerable<Game>>? Get()
         {
-            try { return await context.GamesEnt.FromSqlRaw($"SELECT * FROM `GamesEnt`").ToListAsync(); }
+            try { return await Task.Run(() => context.GamesEnt.FromSqlRaw($"SELECT `Id`, `Name`, `TitlePic`, `CreationDate`, `Version`, `Author`, `SourceLang`," +
+                $" `TransLang`, `Creator`, `Description`, `UrlExtra`, `Substitution` FROM `GamesEnt`")); }
             catch { return null; }
         }
         /// <summary>
@@ -78,10 +76,10 @@ namespace RPG_MV_Trans_API.Controllers
         public async void Delete(int id)
         {
             int gameId = context.GamesEnt.First(u => u.Id == id).Id;
-            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `TransEnt` WHERE `GameId` = {gameId};");
-            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `MapEnt` WHERE `GameId` = {gameId};");
-            await context.Database.ExecuteSqlRawAsync($"DELETE FROM `GamesEnt` WHERE `Id` = {id};");
-            await context.SaveChangesAsync();
+            await Task.Run(() => context.Database.ExecuteSqlRawAsync($"DELETE FROM `TransEnt` WHERE `GameId` = {gameId};"));
+            await Task.Run(() => context.Database.ExecuteSqlRawAsync($"DELETE FROM `MapEnt` WHERE `GameId` = {gameId};"));
+            await Task.Run(() => context.Database.ExecuteSqlRawAsync($"DELETE FROM `GamesEnt` WHERE `Id` = {id};"));
+            await Task.Run(() => context.SaveChangesAsync());
         }
     }
 }

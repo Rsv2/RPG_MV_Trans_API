@@ -41,17 +41,17 @@ namespace RPG_MV_Trans_API.Controllers
             [FromServices] IJwtSigningEncodingKey signingEncodingKey,
             [FromServices] IJwtEncryptingEncodingKey encryptingEncodingKey)
         {
-            if ((await _signInManager.PasswordSignInAsync(authRequest.Name, authRequest.Password, false, false)).Succeeded)
+            if ((await Task.Run(() => _signInManager.PasswordSignInAsync(authRequest.Name, authRequest.Password, false, false))).Succeeded)
             {
-                User user = await _userManager.FindByNameAsync(authRequest.Name);
+                User user = await Task.Run(() => _userManager.FindByNameAsync(authRequest.Name));
                 string role;
                 List<Claim> games = new List<Claim>();
-                if (await _userManager.IsInRoleAsync(user, "admin")) { role = "admin"; }
-                else if (await _userManager.IsInRoleAsync(user, "user")) { role = "user"; }
+                if (await Task.Run(() => _userManager.IsInRoleAsync(user, "admin"))) { role = "admin"; }
+                else if (await Task.Run(() => _userManager.IsInRoleAsync(user, "user"))) { role = "user"; }
                 else { role = "uncknown"; }
                 if (role != "uncknown")
                 {
-                    foreach (Claim u in await _userManager.GetClaimsAsync(user))
+                    foreach (Claim u in await Task.Run(() => _userManager.GetClaimsAsync(user)))
                     {
                         if (u.Type == "game") games.Add(u);
                     }

@@ -27,11 +27,16 @@ namespace RPG_MV_Trans_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<TransLog>>? Get()
         {
+            await Task.Run(() => GetLog());
+            return Log;
+        }
+
+        private void GetLog()
+        {
             if (Log.Count > 0 && DateTime.Now > Log[Log.Count - 1].Time.AddMinutes(1))
             {
                 Log.Clear();
             }
-            return Log;
         }
     }
 }

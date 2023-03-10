@@ -48,4 +48,8 @@ public interface IGame
     /// Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)
     /// </summary>
     string UrlExtra { get; set; }
+    /// <summary>
+    /// Заменяемые карты, через пробел, обязательно указывать расширение .json
+    /// </summary>
+    string Substitution { get; set; }
 }

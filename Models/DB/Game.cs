@@ -20,6 +20,7 @@ namespace RPG_MV_Trans_API
         public string Creator { get; set; }
         public string Description { get; set; }
         public string UrlExtra { get; set; }
+        public string Substitution { get; set; }
 
         /// <summary>
         /// Пустой конструктор.
@@ -39,7 +40,8 @@ namespace RPG_MV_Trans_API
         /// <param name="translang">Яхык перевода</param>
         /// <param name="description">Описание</param>
         /// <param name="urlExtra">Url архива с дополнительными файлами (переведённые картинки, java scripts и пр.)</param>
-        public Game(int id, string name, string titlepic, string version, string author, string sourcelang, string translang, string description, string creator, string urlExtra)
+        /// /// <param name="substitution">Заменяемые карты, через пробел, обязательно указывать расширение .json</param>
+        public Game(int id, string name, string titlepic, string version, string author, string sourcelang, string translang, string description, string creator, string urlExtra, string substitution)
         {
             Id = id;
             Name = name;
@@ -52,6 +54,7 @@ namespace RPG_MV_Trans_API
             Creator = creator;
             CreationDate = DateTime.Now;
             UrlExtra = urlExtra;
+            Substitution = substitution;
         }
     }
 }
